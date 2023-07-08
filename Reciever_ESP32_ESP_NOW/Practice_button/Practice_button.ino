@@ -20,8 +20,11 @@ ledcWrite(ledchannel, data.pot);
 }
 
 void setup() {
+  //Initialize serial
   Serial.begin(9600);
+  //Declare wifi mode
   WiFi.mode(WIFI_STA);
+  //Instantiate Discrete Output Pin
   pinMode(LED_PIN, OUTPUT);
   ledcSetup(ledchannel, 5000, 8);
   ledcAttachPin(ALED_PIN, ledchannel);
