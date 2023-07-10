@@ -11,8 +11,8 @@ int count = 0;
 int storage[20];
 int mean = 0;
 
-//address of recieving esp
-uint8_t address[] = {0xA8, 0x42, 0xE3, 0x59, 0xA8, 0xA0};
+//address of recieving esp (check before using)
+uint8_t address[] = {0xB0, 0xB2, 0x1C, 0xA8, 0x99, 0xA0};
 
 typedef struct message{
   int button;
