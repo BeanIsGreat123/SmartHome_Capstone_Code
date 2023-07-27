@@ -21,6 +21,7 @@ SensirionI2cScd30 sensor;
 
 static char errorMessage[128];
 static int16_t error;
+int i;
 
 #define TFT_GREY 0x5AEB // New colour
 
@@ -30,7 +31,7 @@ TFT_eSPI tft = TFT_eSPI();  // Invoke library
 void setup(void) {
   Serial.begin(115200);
   tft.init();
-  tft.setRotation(2);
+  tft.setRotation(3);
   while (!Serial) {
         delay(100);
     }
@@ -59,7 +60,9 @@ void setup(void) {
 }
 
 void loop() {
-  float co2Concentration = 0.0;
+  i++;
+  //COMMENTED OUT TO TEST, REPLACE LATER 
+  /*float co2Concentration = 0.0;
   float temperature = 0.0;
   float humidity = 0.0;
   delay(150);
@@ -70,22 +73,26 @@ void loop() {
         Serial.println(errorMessage);
         return;
     }
-  Serial.print(temperature);
+  Serial.print(temperature);*/
   // Fill screen with grey so we can see the effect of printing with and without 
   // a background colour defined
-  tft.fillScreen(TFT_GREY);
-  
+  tft.fillScreen(TFT_GREEN);
+  //tft.drawRect(5, 5, 310, 230, TFT_GREEN);
+  tft.fillRect(5, 5, 310, 230, TFT_WHITE);
   // Set "cursor" at top left corner of display (0,0) and select font 2
   // (cursor will move to next line automatically during printing with 'tft.println'
   //  or stay on the line is there is room for the text with tft.print)
-  tft.setCursor(0, 0, 2);
+  tft.setCursor(10, 10, 2);
   // Set the font colour to be yellow with no background, set to font 7
-  tft.setTextColor(TFT_YELLOW); tft.setTextFont(2);
-  tft.print("CO2: "); tft.println(co2Concentration);
+  tft.setTextColor(TFT_BLACK); tft.setTextFont(2);
+  /*tft.print("CO2: "); tft.println(co2Concentration);
   tft.print("Temp C: "); tft.println(temperature);
   tft.print("Humidity: "); tft.println(humidity);
-  delay(10000);
+  delay(10000);*/
+  tft.print("Testing Testing: ");
+  tft.print(i);
+  tft.setTextColor(TFT_GREEN);
+  tft.setCursor(250, 200, 4); 
+  tft.print("YCP");
+  delay(1000);
 }
-
-
-
