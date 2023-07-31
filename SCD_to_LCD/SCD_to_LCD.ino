@@ -21,6 +21,8 @@ SensirionI2cScd30 sensor;
 
 static char errorMessage[128];
 static int16_t error;
+
+//VARIABLE FOR INCREMENTING TEST VALUE, NOT NECESSARY
 int i;
 
 #define TFT_GREY 0x5AEB // New colour
@@ -83,15 +85,16 @@ void loop() {
   // Set "cursor" at top left corner of display (0,0) and select font 2
   // (cursor will move to next line automatically during printing with 'tft.println'
   //  or stay on the line is there is room for the text with tft.print)
-  tft.setCursor(10, 10, 4);
+  tft.setCursor(20, 20, 4);
   // Set the font colour to be yellow with no background, set to font 7
   tft.setTextColor(TFT_GREEN);
 
   //ROOM SPECIFIC DISPLAY
-  tft.print("KEC128");
+  tft.println("KEC128");
   //END ROOM SPECIFIC DISPLAY
 
   //ADJUST TEXT FONT AND COLOR
+  tft.setCursor(20, 50, 4);
   tft.setTextColor(TFT_BLACK); tft.setTextFont(2);
 
   //DISPLAY SENSOR VALUES 
