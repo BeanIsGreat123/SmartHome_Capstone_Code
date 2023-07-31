@@ -74,6 +74,7 @@ void loop() {
         return;
     }
   Serial.print(temperature);*/
+    //ABOVE COMMENTED OUT TO TEST, REPLACE LATER 
   // Fill screen with grey so we can see the effect of printing with and without 
   // a background colour defined
   tft.fillScreen(TFT_GREEN);
@@ -82,15 +83,28 @@ void loop() {
   // Set "cursor" at top left corner of display (0,0) and select font 2
   // (cursor will move to next line automatically during printing with 'tft.println'
   //  or stay on the line is there is room for the text with tft.print)
-  tft.setCursor(10, 10, 2);
+  tft.setCursor(10, 10, 4);
   // Set the font colour to be yellow with no background, set to font 7
+  tft.setTextColor(TFT_GREEN);
+
+  //ROOM SPECIFIC DISPLAY
+  tft.print("KEC128");
+  //END ROOM SPECIFIC DISPLAY
+
+  //ADJUST TEXT FONT AND COLOR
   tft.setTextColor(TFT_BLACK); tft.setTextFont(2);
+
+  //DISPLAY SENSOR VALUES 
   /*tft.print("CO2: "); tft.println(co2Concentration);
   tft.print("Temp C: "); tft.println(temperature);
-  tft.print("Humidity: "); tft.println(humidity);
-  delay(10000);*/
+  tft.print("Humidity: "); tft.println(humidity);*/
+  //END DISPLAY SENSOR VALUES
+
+  //TEST PRINT FOR MISSING SENSOR
   tft.print("Testing Testing: ");
   tft.print(i);
+
+  //DIPLAY YCP IN CORNER
   tft.setTextColor(TFT_GREEN);
   tft.setCursor(250, 200, 4); 
   tft.print("YCP");
