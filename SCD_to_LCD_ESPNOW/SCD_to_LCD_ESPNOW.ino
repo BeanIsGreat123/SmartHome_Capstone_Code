@@ -9,15 +9,17 @@ static char errorMessage[128];
 static int16_t error;
 //define struct that will be sent
 typedef struct message{
+    int id = 1;
+    int mdi=-1;
+    float co2;
     float t;
     float h;
-    float co2;
 } message;
 //Instantiate variable
 message data;
 
-uint8_t address[] = {0xA0, 0xB7, 0x65, 0x49, 0x1B, 0x20};
-
+//uint8_t address[] = {0xA0, 0xB7, 0x65, 0x49, 0x1B, 0x20};
+uint8_t address[] = {0xB0, 0xB2, 0x1C, 0xA8, 0x99, 0xAC};
 //peer info
 esp_now_peer_info_t peer;
 
