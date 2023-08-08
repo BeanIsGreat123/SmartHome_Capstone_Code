@@ -9,6 +9,7 @@ static char errorMessage[128];
 static int16_t error;
 //define struct that will be sent
 typedef struct message{
+    int id = 1;
     float t;
     float h;
     float co2;
@@ -27,7 +28,22 @@ void OnSend(const uint8_t *mac_addr, esp_now_send_status_t status){
 }
 
 void setup() {
-
+//configure Wifi Mode
+    WiFi.mode(WIFI_STA);
+//initialize esp now
+if(esp_now_init() != ESP_OK){
+  Serial.println("error starting esp now");
+}
+//Register the send callback
+esp_now_register_send_cb(OnSend);
+memcpy(peer.peer_addr, address, 6);
+peer.channel = 0;
+peer.encrypt = false;
+//connect and verify connection
+if(esp_now_add_peer(&peer) != ESP_OK){
+  Serial.println("Failed to add peer");
+  return;
+}
     Serial.begin(115200);
 
     while (!Serial) {
@@ -61,30 +77,13 @@ void setup() {
         Serial.println(errorMessage);
         return;
     }
-    //configure Wifi Mode
-      WiFi.mode(WIFI_STA);
-  //initialize esp now
-  if(esp_now_init() != ESP_OK){
-    Serial.println("error starting esp now");
-  }
-  //Register the send callback
-  esp_now_register_send_cb(OnSend);
-  memcpy(peer.peer_addr, address, 6);
-  peer.channel = 0;
-  peer.encrypt = false;
-  //connect and verify connection
-  if(esp_now_add_peer(&peer) != ESP_OK){
-    Serial.println("Failed to add peer");
-    return;
-  }
-
 }
 
 void loop() {
     float co2Concentration = 0.0;
     float temperature = 0.0;
     float humidity = 0.0;
-    delay(1500);
+    delay(150);
     error = sensor.blockingReadMeasurementData(co2Concentration, temperature,
                                                humidity);
     if (error != NO_ERROR) {
@@ -109,5 +108,5 @@ void loop() {
     esp_err_t result = esp_now_send(address, (uint8_t *) &data, sizeof(data));
     if(result == ESP_OK){
       Serial.print("Sending confirmed");
-    } 
+    }
 }
